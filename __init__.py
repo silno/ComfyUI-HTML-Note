@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 """ComfyUI-HTML-Note
 
-在画布节点里渲染 HTML 说明文档。内容以字符串形式存在节点的 widget 里，
-随工作流 json 一起保存 / 拷贝，换机器不用另外带 readme、txt 或本地路径。
+Renders an HTML documentation panel inside a canvas node. The content is kept as a string in
+the node's widget, so it is saved with / travels with the workflow json - no readme, no txt,
+no local path needed on another machine.
 
-后端只提供一个不会被真正执行的空壳节点（纯前端负责渲染），
-所以这个包没有任何 Python 依赖、不读本机文件、不占显存。
+The backend only serves an empty shell node that is never executed (the frontend does the
+rendering), so this package has no Python dependencies, reads no local files and uses no VRAM.
 """
 
 import os
 
-__version__ = "1.1.2"
+__version__ = "1.1.3"
 
 WEB_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")
 
 
 class HTMLNote:
-    """纯展示节点：没有输出口，不排进执行链，只是给前端一个可以挂 DOM 的槽位。"""
+    """Display-only node: no outputs, not part of the execution chain - just a DOM slot for the frontend."""
 
     CATEGORY = "Notes"
     FUNCTION = "noop"
@@ -32,7 +33,7 @@ class HTMLNote:
                     {
                         "multiline": True,
                         "default": "",
-                        "placeholder": "HTML 说明内容，会随工作流保存",
+                        "placeholder": "HTML documentation, saved with the workflow",
                     },
                 ),
                 "height": ("INT", {"default": 420, "min": 120, "max": 8000, "step": 20}),
@@ -40,12 +41,13 @@ class HTMLNote:
         }
 
     def noop(self, html, height):
-        # 空实现：节点不会被执行，这里只是满足 ComfyUI 的注册要求。
+        # Never executed; only here to satisfy ComfyUI's registration requirement.
         return {}
 
 
-# 注册必须放在类定义之后，否则会在 import 阶段抛 NameError 导致整个包 IMPORT FAILED。
+# Registration must come after the class definition, otherwise the import raises NameError and
+# the whole package fails with IMPORT FAILED.
 NODE_CLASS_MAPPINGS = {"HTMLNote": HTMLNote}
-NODE_DISPLAY_NAME_MAPPINGS = {"HTMLNote": "HTML 说明（随 json 保存）"}
+NODE_DISPLAY_NAME_MAPPINGS = {"HTMLNote": "HTML Note (saved with the json)"}
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS", "WEB_DIRECTORY", "__version__"]

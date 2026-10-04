@@ -1,47 +1,9 @@
 [project]
-# Node id on the registry. Rules: <100 chars, only letters/digits/hyphens/
-# underscores/dots, must not start with a digit or symbol, no consecutive
-# special chars. Best practice: do NOT include the word "ComfyUI".
-# IMPORTANT: this id is IMMUTABLE once published - pick it carefully.
-name = "html-note"
-
-# Semantic versioning. Bump this before every `comfy node publish`,
-# otherwise the registry rejects the upload ("version already exists").
+name = "comfyui-html-note"
 version = "1.0.0"
-
-description = "Renders HTML documentation inside a ComfyUI canvas node, stored in the workflow json so docs travel with the workflow - no separate README or txt."
-
-# Either a file reference or { text = "<license name>" }. Keep the LICENSE
-# file in the repo root.
-license = { file = "LICENSE" }
-
-requires-python = ">=3.8"
-
-# Zero dependencies: the backend is an intentionally empty node (pure frontend),
-# so there is nothing to install and nothing that can break on a fresh machine.
-dependencies = []
-
-classifiers = [
-    "Operating System :: OS Independent",
-]
-
-[project.urls]
-# If you name the GitHub repo something else, update these three URLs too.
-Repository = "https://github.com/silno/ComfyUI-HTML-Note"
-Documentation = "https://github.com/silno/ComfyUI-HTML-Note#readme"
-"Bug Tracker" = "https://github.com/silno/ComfyUI-HTML-Note/issues"
+description = "Render inline HTML documentation inside a ComfyUI canvas node. The HTML travels with the workflow json, so no extra readme/txt or local path is needed."
 
 [tool.comfy]
-# Matches the GitHub account above, which is the recommended convention.
-# Globally unique and CANNOT be changed later.
-PublisherId = "silno"
-
-# Human friendly name shown on the registry / in ComfyUI-Manager.
-DisplayName = "HTML Note"
-
-# Optional. Square, SVG/PNG/JPG/GIF, max 400x400.
-# Icon = "https://raw.githubusercontent.com/silno/ComfyUI-HTML-Note/main/icon.png"
-
-# Optional. ComfyUI compatibility range (operators <, >, <=, >=, ~=, !=, <>).
-# Developed against ComfyUI core 0.38.1 / comfyui_frontend_package 1.53.6.
-requires-comfyui = ">=0.3.40"
+publisher_id = "silno"
+display_name = "ComfyUI HTML Note"
+icon = "ℹ️"
